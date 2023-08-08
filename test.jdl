@@ -1,0 +1,41 @@
+entity Product {
+	name String required
+    category String required
+    price BigDecimal required min(0)
+    quantity Integer required min(0)
+    description String
+}
+
+entity Customer {
+	email String required unique pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
+    passwordHash String required
+    firstName String required
+    lastName String required
+    age Integer required min(18) max(100)
+    verified Boolean required
+    phone String pattern(/^\+375\d{9}$/)
+}
+
+entity Order {
+	amount BigDecimal required min(0)
+    status OrderStatus required
+    paymentMethod String required
+    shippingAddress String required
+    comment String
+}
+
+enum OrderStatus {
+	PENDING
+	SHIPPED
+    DELIVERED
+    SUCCEEDED
+    CANCELED
+}
+
+relationship OneToMany {
+	Customer to Order{customer}
+}
+
+relationship ManyToMany {
+	Product to Order{products required}
+}
