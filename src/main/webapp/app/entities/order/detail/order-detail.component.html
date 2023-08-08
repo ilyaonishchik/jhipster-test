@@ -14,32 +14,14 @@
         <dd>
           <span>{{ order.id }}</span>
         </dd>
-        <dt><span jhiTranslate="testApp.order.amount">Amount</span></dt>
-        <dd>
-          <span>{{ order.amount }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.order.status">Status</span></dt>
-        <dd>
-          <span>{{ order.status }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.order.paymentMethod">Payment Method</span></dt>
-        <dd>
-          <span>{{ order.paymentMethod }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.order.shippingAddress">Shipping Address</span></dt>
-        <dd>
-          <span>{{ order.shippingAddress }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.order.comment">Comment</span></dt>
-        <dd>
-          <span>{{ order.comment }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.order.customer">Customer</span></dt>
-        <dd>
-          <div *ngIf="order.customer">
-            <a [routerLink]="['/customer', order.customer.id, 'view']">{{ order.customer.id }}</a>
-          </div>
-        </dd>
+        <ng-container *ngFor="let field of fields">
+          <dt>
+            <span>{{ field.fieldName }}</span>
+          </dt>
+          <dd>
+            <span>{{ order[field.fieldName] }}</span>
+          </dd>
+        </ng-container>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
