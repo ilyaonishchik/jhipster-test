@@ -14,33 +14,14 @@
         <dd>
           <span>{{ product.id }}</span>
         </dd>
-        <dt><span jhiTranslate="testApp.product.name">Name</span></dt>
-        <dd>
-          <span>{{ product.name }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.product.category">Category</span></dt>
-        <dd>
-          <span>{{ product.category }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.product.price">Price</span></dt>
-        <dd>
-          <span>{{ product.price }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.product.quantity">Quantity</span></dt>
-        <dd>
-          <span>{{ product.quantity }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.product.description">Description</span></dt>
-        <dd>
-          <span>{{ product.description }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.product.order">Order</span></dt>
-        <dd>
-          <span *ngFor="let order of product.orders; let last = last">
-            <a [routerLink]="['/order', order.id, 'view']">{{ order.id }}</a
-            >{{ last ? '' : ', ' }}
-          </span>
-        </dd>
+        <ng-container *ngFor="let field of fields">
+          <dt>
+            <span>{{ field.fieldName }}</span>
+          </dt>
+          <dd>
+            <span>{{ product[field.fieldName] }}</span>
+          </dd>
+        </ng-container>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
