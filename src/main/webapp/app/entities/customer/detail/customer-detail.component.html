@@ -14,34 +14,14 @@
         <dd>
           <span>{{ customer.id }}</span>
         </dd>
-        <dt><span jhiTranslate="testApp.customer.email">Email</span></dt>
-        <dd>
-          <span>{{ customer.email }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.customer.passwordHash">Password Hash</span></dt>
-        <dd>
-          <span>{{ customer.passwordHash }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.customer.firstName">First Name</span></dt>
-        <dd>
-          <span>{{ customer.firstName }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.customer.lastName">Last Name</span></dt>
-        <dd>
-          <span>{{ customer.lastName }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.customer.age">Age</span></dt>
-        <dd>
-          <span>{{ customer.age }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.customer.verified">Verified</span></dt>
-        <dd>
-          <span>{{ customer.verified }}</span>
-        </dd>
-        <dt><span jhiTranslate="testApp.customer.phone">Phone</span></dt>
-        <dd>
-          <span>{{ customer.phone }}</span>
-        </dd>
+        <ng-container *ngFor="let field of fields">
+          <dt>
+            <span>{{ field.fieldName }}</span>
+          </dt>
+          <dd>
+            <span>{{ customer[field.fieldName] }}</span>
+          </dd>
+        </ng-container>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
