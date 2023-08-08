@@ -4,7 +4,6 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import SharedModule from 'app/shared/shared.module';
 import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
 import { ICustomer } from '../customer.model';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -15,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class CustomerDetailComponent {
   @Input() customer: ICustomer | null = null;
 
-  constructor(protected activatedRoute: ActivatedRoute, private http: HttpClient) {}
+  constructor(protected activatedRoute: ActivatedRoute) {}
 
   previousState(): void {
     window.history.back();
