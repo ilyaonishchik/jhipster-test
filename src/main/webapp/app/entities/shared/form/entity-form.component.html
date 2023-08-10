@@ -4,7 +4,9 @@
     <input
       [name]="field.fieldName"
       [formControlName]="field.fieldName.toString()"
-      [type]="field.fieldType === 'String' ? 'text' : field.fieldType === ('Integer' || 'BigDecimal') ? 'number' : 'checkbox'"
+      [type]="
+        field.fieldType === 'String' ? 'text' : field.fieldType === 'Integer' || field.fieldType === 'BigDecimal' ? 'number' : 'checkbox'
+      "
       [class]="field.fieldType === 'Boolean' ? 'form-check' : 'form-control'"
     />
     <div

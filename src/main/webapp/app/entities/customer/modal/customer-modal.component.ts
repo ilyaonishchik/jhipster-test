@@ -3,7 +3,8 @@ import { EntityFormComponent } from '../../shared/form/entity-form.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EntityService } from 'app/entities/shared/entity.service';
 import { CommonModule } from '@angular/common';
-import { ICustomer } from '../customer.model';
+import { ICustomer, NewCustomer } from '../customer.model';
+import { CustomerService } from '../service/customer.service';
 
 @Component({
   standalone: true,
@@ -14,13 +15,17 @@ import { ICustomer } from '../customer.model';
 export class CustomerModalComponent {
   customer?: ICustomer;
 
-  constructor(protected activeModal: NgbActiveModal) {}
+  constructor(protected activeModal: NgbActiveModal, private customerService: CustomerService) {}
 
   close(): void {
     this.activeModal.dismiss();
   }
 
-  submit(): void {
-    alert('submit');
+  submit(value: NewCustomer | ICustomer): void {
+    if (this.customer) {
+      this.customerService.update(value as ICustomer).subscribe(() => this.close());
+    } else {
+      this.customerService.create(value as NewCustomer).subscribe(() => this.close());
+    }
   }
 }

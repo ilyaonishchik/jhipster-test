@@ -4,10 +4,6 @@ import { EntityField } from '../entity-field';
 
 @Injectable({ providedIn: 'root' })
 export class EntityFormService<T> {
-  getEntity(form: FormGroup): T {
-    return form.getRawValue() as T;
-  }
-
   createFormGroup(fields: EntityField<T>[]): FormGroup {
     const formGroup = new FormGroup({});
     fields.forEach(field => formGroup.addControl(String(field.fieldName), this.createFormControl(field)));
@@ -15,9 +11,6 @@ export class EntityFormService<T> {
   }
 
   createFormControl(field: EntityField<T>): FormControl {
-    switch (field.fieldType) {
-      case '':
-    }
     let formControl;
     switch (field.fieldType) {
       case 'String':

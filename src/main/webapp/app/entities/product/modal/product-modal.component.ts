@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { EntityFormComponent } from '../../shared/form/entity-form.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { IProduct } from '../product.model';
+import { IProduct, NewProduct } from '../product.model';
 import { EntityService } from 'app/entities/shared/entity.service';
 import { CommonModule } from '@angular/common';
+import { ProductService } from '../service/product.service';
 
 @Component({
   standalone: true,
@@ -14,13 +15,17 @@ import { CommonModule } from '@angular/common';
 export class ProductModalComponent {
   product?: IProduct;
 
-  constructor(protected activeModal: NgbActiveModal) {}
+  constructor(protected activeModal: NgbActiveModal, private productService: ProductService) {}
 
   close(): void {
     this.activeModal.dismiss();
   }
 
-  submit(): void {
-    alert('submit');
+  submit(value: NewProduct | IProduct): void {
+    if (this.product) {
+      this.productService.update(value as IProduct).subscribe(() => this.close());
+    } else {
+      this.productService.create(value as NewProduct).subscribe(() => this.close());
+    }
   }
 }

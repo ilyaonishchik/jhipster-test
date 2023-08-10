@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntityField } from '../entity-field';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { EntityFormService } from './entity-form.service';
 import { EntityService } from '../entity.service';
@@ -24,10 +24,14 @@ export class EntityFormComponent<T> implements OnInit {
     this.entityService.getConfig(this.filename).subscribe(config => {
       this.fields = config.fields;
       this.form = this.entityFormService.createFormGroup(this.fields);
+      this.form.addControl('id', new FormControl());
+      if (this.entity) {
+        this.form.reset({ ...this.entity });
+      }
     });
   }
 
   submit(): void {
-    this.submitEmitter.emit();
+    this.submitEmitter.emit(this.form.value);
   }
 }
