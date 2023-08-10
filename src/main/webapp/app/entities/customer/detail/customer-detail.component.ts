@@ -4,8 +4,8 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import SharedModule from 'app/shared/shared.module';
 import { DurationPipe, FormatMediumDatetimePipe, FormatMediumDatePipe } from 'app/shared/date';
 import { ICustomer } from '../customer.model';
-import { EntityService } from 'app/entities/entity.service';
-import { EntityField } from 'app/entities/entity-field';
+import { EntityService } from 'app/entities/shared/entity.service';
+import { EntityField } from 'app/entities/shared/entity-field';
 
 @Component({
   standalone: true,
@@ -18,10 +18,10 @@ export class CustomerDetailComponent implements OnInit {
   @Input() customer: ICustomer | null = null;
   fields: EntityField<ICustomer>[] = [];
 
-  constructor(protected activatedRoute: ActivatedRoute, private entityService: EntityService) {}
+  constructor(protected activatedRoute: ActivatedRoute, private entityService: EntityService<ICustomer>) {}
 
   ngOnInit(): void {
-    this.entityService.getConfig<ICustomer>('Customer').subscribe(config => (this.fields = config.fields));
+    this.entityService.getConfig('Customer').subscribe(config => (this.fields = config.fields));
   }
 
   previousState(): void {

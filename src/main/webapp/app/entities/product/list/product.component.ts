@@ -12,6 +12,7 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, ProductService } from '../service/product.service';
 import { ProductDeleteDialogComponent } from '../delete/product-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
+import { ProductModalComponent } from '../modal/product-modal.component';
 
 @Component({
   standalone: true,
@@ -47,6 +48,11 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+  }
+
+  openModal(product?: IProduct): void {
+    const modalRef = this.modalService.open(ProductModalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.product = product;
   }
 
   delete(product: IProduct): void {

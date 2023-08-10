@@ -33,8 +33,7 @@
     },
     {
       "fieldName": "verified",
-      "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldType": "Boolean"
     },
     {
       "fieldName": "phone",

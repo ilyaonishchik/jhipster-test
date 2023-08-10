@@ -1,0 +1,8 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ product ? 'Edit' : 'Create' }} a product</h4>
+  <button class="btn btn-danger" (click)="close()">Close</button>
+</div>
+
+<div class="modal-body">
+  <jhi-entity-form filename="Product" [entity]="product" (submitEmitter)="submit()"></jhi-entity-form>
+</div>

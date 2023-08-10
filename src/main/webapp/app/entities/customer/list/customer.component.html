@@ -3,6 +3,10 @@
     <span jhiTranslate="testApp.customer.home.title">Customers</span>
 
     <div class="d-flex justify-content-end">
+      <button class="btn btn-secondary me-2" (click)="openModal()">
+        <span>Create</span>
+      </button>
+
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="testApp.customer.home.refreshListLabel">Refresh list</span>
@@ -97,6 +101,8 @@
           <td>{{ customer.phone }}</td>
           <td class="text-end">
             <div class="btn-group">
+              <button class="btn btn-secondary" (click)="openModal(customer)">Edit</button>
+
               <button
                 type="submit"
                 [routerLink]="['/customer', customer.id, 'view']"

@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div *ngFor="let field of fields" class="mb-3">
+    <label class="form-label" [for]="field.fieldName">{{ field.fieldName }}</label>
+    <input
+      [name]="field.fieldName"
+      [formControlName]="field.fieldName.toString()"
+      [type]="field.fieldType === 'String' ? 'text' : field.fieldType === ('Integer' || 'BigDecimal') ? 'number' : 'checkbox'"
+      [class]="field.fieldType === 'Boolean' ? 'form-check' : 'form-control'"
+    />
+    <div
+      *ngIf="
+        form.get(field.fieldName.toString())!.invalid &&
+        (form.get(field.fieldName.toString())!.dirty || form.get(field.fieldName.toString())!.touched)
+      "
+    >
+      <small class="form-text text-danger" *ngIf="form.get(field.fieldName.toString())?.errors?.required"> This field is required. </small>
+      <small class="form-text text-danger" *ngIf="form.get(field.fieldName.toString())?.errors?.pattern">
+        This field should follow pattern for {{ field.fieldName }}.
+      </small>
+      <small class="form-text text-danger" *ngIf="form.get(field.fieldName.toString())?.errors?.min">
+        This field should be at least {{ field.fieldValidateRulesMin }}.
+      </small>
+      <small class="form-text text-danger" *ngIf="form.get(field.fieldName.toString())?.errors?.max">
+        This field cannot be more than {{ field.fieldValidateRulesMax }}.
+      </small>
+      <small class="form-text text-danger" [hidden]="!form.get(field.fieldName.toString())?.errors?.number">
+        This field should be a number.
+      </small>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">{{ entity ? 'Edit' : 'Create' }}</button>
+</form>

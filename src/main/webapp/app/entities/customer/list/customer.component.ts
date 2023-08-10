@@ -12,6 +12,7 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, CustomerService } from '../service/customer.service';
 import { CustomerDeleteDialogComponent } from '../delete/customer-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
+import { CustomerModalComponent } from '../modal/customer-modal.component';
 
 @Component({
   standalone: true,
@@ -47,6 +48,11 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.load();
+  }
+
+  openModal(customer?: ICustomer): void {
+    const modalRef = this.modalService.open(CustomerModalComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.customer = customer;
   }
 
   delete(customer: ICustomer): void {
